@@ -16,7 +16,7 @@
   - [Introduction](#introduction)
     - [Problem](#problem)
     - [Proposal](#proposal)
-  - [Documents](#documents)
+  - [Documents Architecture](#documents-architecture)
     - [System of Systems (Overview)](#system-of-systems-overview)
     - [Systems](#systems)
       - [Dummy System](#dummy-system)
@@ -31,9 +31,11 @@
 ### Problem 
 ### Proposal 
 
-## Documents 
+## Documents Architecture
 
 ### System of Systems (Overview)
+
+![System of Systems](./Images/Conccept_System_of_Systems.png)
 
 ### Systems
 * Dummy System
