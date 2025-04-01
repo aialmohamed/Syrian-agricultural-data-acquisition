@@ -1,0 +1,33 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{1em}{}
+\setstretch{1.5}
+
+\title{\textbf{Title}}
+\author{Author \\ company \\ \texttt{email@example.com}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This report explores the potential of smart farming technologies to restore and enhance agricultural productivity in post-war Syria. The research spans historical agricultural practices, conflict impact, current challenges, and technological solutions.
+
+\section{Current Agricultural Situation}
+\subsection{Pre-War Agricultural Landscape}
+Discuss Syria’s agricultural contribution to GDP, key crops like wheat and cotton, irrigation infrastructure, and farming communities.
+\cite{fao2009}
+
+\bibliographystyle{IEEEtran}
+\bibliography{ref.bib}
+\end{document}
