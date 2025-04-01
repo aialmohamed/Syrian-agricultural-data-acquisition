@@ -14,9 +14,12 @@
   - [Index](#index)
   - [About SGRD](#about-sgrd)
   - [Introduction](#introduction)
+  - [On the Problem and Proposals](#on-the-problem-and-proposals)
     - [Problem](#problem)
+      - [Introduction to the challenges and problems of the agricultural sector and environmental issues in Syria](#introduction-to-the-challenges-and-problems-of-the-agricultural-sector-and-environmental-issues-in-syria)
+      - [Documentation on the Problem section](#documentation-on-the-problem-section)
     - [Proposal](#proposal)
-  - [Documents Architecture](#documents-architecture)
+  - [Technical and engineering Documentation](#technical-and-engineering-documentation)
     - [System of Systems (Overview)](#system-of-systems-overview)
     - [Systems](#systems)
       - [Dummy System](#dummy-system)
@@ -28,14 +31,49 @@
 ## About SGRD
 
 ## Introduction
+
+## On the Problem and Proposals 
 ### Problem 
+
+#### Introduction to the challenges and problems of the agricultural sector and environmental issues in Syria    
+
+This section aims to delineate the challenges believed to be impacting Syria's agricultural sector prior to the onset of the Syrian conflict and extending up to the conclusion of the hostilities in December 2025.
+In this context, the following points are of particular relevance: 
+
+* Current Agricultural Situation
+- [ ] Research Syria's pre-war agricultural landscape
+- [ ] Investigate war impact on agriculture in Syria
+- [ ] Identify current agricultural challenges in Syria
+- [ ] Document key agricultural regions and crops
+
+* Land Desertification 
+- [ ] Research extent of land desertification in Syria
+- [ ] Identify causes of desertification in Syrian context
+- [ ] Find existing restoration efforts and their effectiveness
+- [ ] Document environmental factors affecting land restoration
+
+* Damaged Farms
+- [ ] Research extent of farm damage from the war
+- [ ] Identify types of damage (infrastructure, irrigation, etc.)
+- [ ] Find existing farm restoration efforts
+- [ ] Document economic impact of farm damage
+
+#### Documentation on the Problem section
+
+here we enlisted all the documents that are relevant to the problems description
+
+
+
+
+
+
 ### Proposal 
 
-## Documents Architecture
+
+## Technical and engineering Documentation
 
 ### System of Systems (Overview)
 
-![System of Systems](./Images/Conccept_System_of_Systems.png)
 
 ### Systems
 * Dummy System
