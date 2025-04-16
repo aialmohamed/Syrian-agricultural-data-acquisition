@@ -27,6 +27,7 @@
         - [System Overview](#system-overview)
         - [Requirements](#requirements)
         - [Use case / Study case  / Show Case](#use-case--study-case---show-case)
+  - [Todo](#todo)
 
 ## About SGRD
 
@@ -86,3 +87,15 @@ here we enlisted all the documents that are relevant to the problems description
 ##### System Overview
 ##### Requirements
 ##### Use case / Study case  / Show Case  
+
+
+## Todo
+- [ ] Talk to experts on the subject of agricultural challenges in syria in the time between 2013 - 2025
+- [ ] Talk to experts on smart farming 
+- [ ] Talk to experts on Climate change impact in syria (east and northeast)
+- [ ] find about watering , water reservoir , irrigation , how much it was damaged
+- [ ] population changes , shortage of working forces in the agricultural
+- [ ]  systematic solutions on short,mid,long term 
+- [ ]  review the goals and solutions with experts 
+- [ ]  communicate the SGRD on the subject 
+- [ ]  find about the agricultural sector before the war (2000-2011) 
