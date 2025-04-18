@@ -7,3 +7,6 @@
 *.gz
 *.toc
 *.json
+euphrates_precipitation
+euphrates_temp
+*.zip
