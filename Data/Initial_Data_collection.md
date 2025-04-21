@@ -5,11 +5,14 @@
 - [Data Collection process](#data-collection-process)
   - [Index](#index)
   - [Introduction](#introduction)
+  - [Introduction](#introduction-1)
   - [Targeted data](#targeted-data)
   - [Targeted areas](#targeted-areas)
     - [Table of AOI , Sectors and Subsectors](#table-of-aoi--sectors-and-subsectors)
     - [Images from Google earth engine on the Areas](#images-from-google-earth-engine-on-the-areas)
       - [Area of interest (AOI)](#area-of-interest-aoi)
+      - [Sectors](#sectors)
+      - [Subsectors](#subsectors)
   - [Time series](#time-series)
   - [Methods](#methods)
   - [Data storing and visuals](#data-storing-and-visuals)
@@ -17,28 +20,44 @@
   - [Referencing and data sources](#referencing-and-data-sources)
 
 ## Introduction
-In this section of the project we shall put the first steps into the data acquisition for the proposal .
+## Introduction
 
-All those data were taken by google earth engine using remote sensing from different satellites on different bandwidth .  
+This section outlines the data collection process that forms the backbone of our research into climate, agricultural, and environmental changes in eastern Syria. The aim is to build a reliable dataset using remote sensing tools and publicly available Earth observation datasets to support evidence-based analysis.
+
+We focus specifically on a defined **Area of Interest (AOI)** in eastern Syria, which has been divided into four main sectors and a series of detailed sub-sectors. This spatial division allows for more granular analysis and makes it possible to compare trends across regions and time periods.
+
+All datasets used in this project were accessed and processed using **Google Earth Engine (GEE)** — a cloud-based platform that enables large-scale analysis of satellite imagery. These datasets are derived from various satellite missions and sensors, such as **MODIS**, **Sentinel-2**, **CHIRPS**, and **ERA5**, among others.
+
+The following sections present:
+- A detailed list of the **targeted indicators** (e.g., NDVI, rainfall, temperature, drought, etc.)
+- A breakdown of the **spatial structure** of the study area
+- Visual outputs (maps and exports) from Google Earth Engine
+- A proposed structure for **temporal analysis** across three critical periods:
+  - **2000–2011**: Pre-conflict
+  - **2012–2017**: Conflict escalation and displacement
+  - **2018–2024**: Post-division phase
+
+This framework will support both quantitative analysis and visual storytelling, paving the way for deeper insight into climate-related vulnerabilities and land degradation patterns in Syria.
+
+More refinements and methods will be detailed in the following sections.
 
 
 More (TBD)
 
 ## Targeted data 
 
-- Vegetation (NDVI, SAVI, EVI…)
+| Indicator                      | Description                                                                                      | Example Datasets / Indices                   |
+|-------------------------------|--------------------------------------------------------------------------------------------------|----------------------------------------------|
+| Vegetation                    | Plant health and biomass through spectral indices                                                | NDVI, SAVI, EVI                              |
+| Precipitation                 | Rainfall totals, anomalies, and seasonal changes                                                 | CHIRPS, ERA5, IMERG                          |
+| Temperature                   | Minimum, maximum, average, and long-term trends                                                  | MODIS, ERA5, TerraClimate                    |
+| Drought                       | Dryness severity using vegetation and climate indicators                                         | SPI, SPEI, NDWI                              |
+| Salinity                      | Soil salt levels detected through spectral reflectance or field sensors                          | NDSI, field EC meters                        |
+| Evapotranspiration (ET)       | Water loss via evaporation and transpiration                                                     | MOD16 (MODIS ET), WaPOR (FAO)                |
+| Land Use / Land Cover Change  | Monitors urbanization, crop shifts, fallow land, desertification                                 | ESA CCI LULC, MODIS Land Cover               |
+| Soil Type / Soil Properties   | Indicates water retention, erosion risk, salinity sensitivity                                    | HWSD, SoilGrids                              |
+| (TBD)                         | To be determined based on future needs                                                           | —                                            |
 
-- Precipitation (total, anomalies, seasonal trends)
-
-- Temperature (min, max, average, trends)
-
-- Drought (indices like SPI, SPEI, NDWI)
-
-- Salinity (soil salinity indicators via remote sensing or field)
-- Evapotranspiration (ET) (Water loss via evaporation and plant transpiration.) ( Dataset: MOD16 (MODIS ET), WaPOR (FAO))
-- Land Use / Land Cover Change (LULC) (Tracks crop areas, fallow land, desertification.) (Shows impact of conflict, migration, or farming shifts.)
-- Soil Type / Soil Properties (Affects water retention, salinity sensitivity. Global datasets: HWSD, SoilGrids )
-- (TBD)
 
 ## Targeted areas
 
@@ -87,6 +106,15 @@ More (TBD)
 
 #### Area of interest (AOI) 
  
+![AOI](../Images/AREA_OF_INTERSET/SYRIA_EAST_AOI.png)
+
+#### Sectors
+
+![SECTORS](../Images/AREA_OF_INTERSET/SYRIA_ALL_MAIN_SECOTRS.png)
+
+#### Subsectors
+
+![Subsectors](../Images/AREA_OF_INTERSET/SUBSECTORS.png)
 
 ## Time series
 
