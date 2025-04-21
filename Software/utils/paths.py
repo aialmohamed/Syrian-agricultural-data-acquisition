@@ -10,6 +10,7 @@ class Paths:
         self._config_path = os.path.join(self._root, 'Software', 'Config')
         self._project_config_path = os.path.join(self._config_path, 'project_configs.yaml')
         self._assets_config_path = os.path.join(self._config_path, 'assets_configs.yaml')
+        self._satellite_config_path = os.path.join(self._config_path, 'satellite_configs.yaml')
 
     @property
     def folium_path(self):
@@ -33,3 +34,6 @@ class Paths:
     @property
     def assets_config_path(self):
         return self._assets_config_path
+    @property
+    def satellite_config_path(self):
+        return self._satellite_config_path
