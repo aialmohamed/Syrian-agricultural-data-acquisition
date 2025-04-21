@@ -7,6 +7,6 @@
 *.gz
 *.toc
 *.json
-euphrates_precipitation
-euphrates_temp
+Folium_out
+__pycache__
 *.zip

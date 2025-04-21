@@ -14,6 +14,11 @@
       - [Subsectors](#subsectors)
   - [Time series](#time-series)
   - [Methods](#methods)
+  - [Workflow Steps](#workflow-steps)
+    - [1. **Define Spatial Areas**](#1-define-spatial-areas)
+    - [2. **Set Time Periods**](#2-set-time-periods)
+    - [3. **Collect Indicators (per subsector)**](#3-collect-indicators-per-subsector)
+    - [4. **Time Series Processing**](#4-time-series-processing)
   - [Data storing and visuals](#data-storing-and-visuals)
   - [Conclusion](#conclusion)
   - [Referencing and data sources](#referencing-and-data-sources)
@@ -116,14 +121,57 @@ More (TBD)
 
 ## Time series
 
-- year by year ( each year tack months)
-- from 2000 to 2011 ( pre war )
-- from 2012 to 2017 (rev start - migration crisis)
-- from 2018 to 2024 ( after division to today)
+- year by year ( each year -> months)
+- `2000–2011` → Pre-conflict
+- `2012–2017` → Conflict/Displacement
+- `2018–2024` → Post-division
 
 ## Methods
 
 (TBD)
+
+
+## Workflow Steps
+
+### 1. **Define Spatial Areas**
+- Use GEE to draw/define:
+  - AOI
+  - 4 Main Sectors
+  - 26 Sub-sectors
+- Export to `.geojson` and `.csv`
+
+### 2. **Set Time Periods**
+Split analysis by:
+- `2000–2011` → Pre-conflict
+- `2012–2017` → Conflict/Displacement
+- `2018–2024` → Post-division
+
+### 3. **Collect Indicators (per subsector)**
+Use GEE or Python API to export CSVs of:
+
+| Indicator       | Source Datasets              | Unit          |
+|-----------------|------------------------------|---------------|
+| NDVI            | MODIS, Sentinel-2            | Index (0–1)   |
+| Precipitation   | CHIRPS, IMERG                | mm/month      |
+| Temperature     | ERA5, TerraClimate           | °C            |
+| Drought Index   | NDWI, SPI, SPEI              | z-score       |
+| Salinity        | Custom index or NDSI         | Index (0–1)   |
+| Evapotranspiration | MOD16, WaPOR              | mm/month      |
+
+Save per subsector in `/Data/Indicators/[SUBSECTOR_NAME]/`.
+
+### 4. **Time Series Processing**
+- Use `pandas` or Excel to average values per time range.
+- Build a table like:
+
+```markdown
+| Subsector | Period       | NDVI | Rainfall | Temp | Drought | Salinity | ET |
+|-----------|--------------|------|----------|------|---------|----------|----|
+| S1_SUB_1  | 2000–2011    | 0.43 | 214mm    | 21°C | -0.7    | 0.2      | 85 |
+| S1_SUB_1  | 2012–2017    | 0.31 | 178mm    | 22°C | -1.3    | 0.4      | 67 |
+| ...       | ...          | ...  | ...      | ...  | ...     | ...      | ...|
+
+```
 
 ## Data storing and visuals 
 
