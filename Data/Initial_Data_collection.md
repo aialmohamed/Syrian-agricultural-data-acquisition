@@ -7,6 +7,9 @@
   - [Introduction](#introduction)
   - [Targeted data](#targeted-data)
   - [Targeted areas](#targeted-areas)
+    - [Table of AOI , Sectors and Subsectors](#table-of-aoi--sectors-and-subsectors)
+    - [Images from Google earth engine on the Areas](#images-from-google-earth-engine-on-the-areas)
+      - [Area of interest (AOI)](#area-of-interest-aoi)
   - [Time series](#time-series)
   - [Methods](#methods)
   - [Data storing and visuals](#data-storing-and-visuals)
@@ -39,11 +42,51 @@ More (TBD)
 
 ## Targeted areas
 
-- east syria (3 states Der ez zor , alraqqah , alhasakah)
-- dived into 4 sectors
-- each sector divided up to 12 sub-sectors
+
+> [!IMPORTANT]
+> The area of interest (AOI) is currently only east of syria  this could expand later to all of the country
+
+> [!IMPORTANT]
+> The data for the polygons of those ares are under **/Data/Area_Data/** there are two files a .csv and a .geojson file
 
 
+
+### Table of AOI , Sectors and Subsectors  
+
+| Level        | Name                          | Description                        |
+|--------------|-------------------------------|------------------------------------|
+| AOI          | SYRIA_EAST_AOI                | Main area of interest              |
+| Sector 1     | SECTOR_1_WEST_NORTH           | Western North                      |
+|              | ├─ SECTOR_1_SUB_1_NORTH_WEST  | Subsector 1                        |
+|              | ├─ SECTOR_1_SUB_2_NORTH_EAST  | Subsector 2                        |
+|              | ├─ SECTOR_1_SUB_3_MID_WEST    | Subsector 3                        |
+|              | ├─ SECTOR_1_SUB_4_MID_EAST    | Subsector 4                        |
+|              | ├─ SECTOR_1_SUB_5_SOUTH_WEST  | Subsector 5                        |
+|              | └─ SECTOR_1_SUB_6_SOUTH_EAST  | Subsector 6                        |
+| Sector 2     | SECTOR_2_MID                  | Central zone                       |
+|              | ├─ SECTOR_2_SUB_1_NORTH_WEST  | Subsector 1                        |
+|              | ├─ SECTOR_2_SUB_2_NORTH_MID   | Subsector 2                        |
+|              | ├─ SECTOR_2_SUB_3_NORTH_EAST  | Subsector 3                        |
+|              | ├─ SECTOR_2_SUB_4_MID_WEST    | Subsector 4                        |
+|              | ├─ SECTOR_2_SUB_5_MID_MID     | Subsector 5                        |
+|              | ├─ SECTOR_2_SUB_6_MID_EAST    | Subsector 6                        |
+|              | ├─ SECTOR_2_SUB_7_SOUTH_WEST  | Subsector 7                        |
+|              | ├─ SECTOR_2_SUB_8_SOUTH_MID   | Subsector 8                        |
+|              | └─ SECTOR_2_SUB_9_SOUTH_EAST  | Subsector 9                        |
+| Sector 3     | SECTOR_3_EAST_NORTH           | Eastern North                      |
+|              | ├─ SECTOR_3_SUB_1_SOUTH       | Subsector 1                        |
+|              | ├─ SECTOR_3_SUB_2_MID         | Subsector 2                        |
+|              | └─ SECTOR_3_SUB_3_NORTH       | Subsector 3                        |
+| Sector 4     | SECTOR_4_EAST_SOUTH           | Eastern South                      |
+|              | ├─ SECTOR_4_SUB_1_NORTH       | Subsector 1                        |
+|              | ├─ SECTOR_4_SUB_2_MID         | Subsector 2                        |
+|              | └─ SECTOR_4_SUB_3_SOUTH       | Subsector 3                        |
+
+
+### Images from Google earth engine on the Areas 
+
+#### Area of interest (AOI) 
+ 
 
 ## Time series
 
