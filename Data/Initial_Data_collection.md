@@ -5,7 +5,6 @@
 - [Data Collection process](#data-collection-process)
   - [Index](#index)
   - [Introduction](#introduction)
-  - [Introduction](#introduction-1)
   - [Targeted data](#targeted-data)
   - [Targeted areas](#targeted-areas)
     - [Table of AOI , Sectors and Subsectors](#table-of-aoi--sectors-and-subsectors)
@@ -19,7 +18,6 @@
   - [Conclusion](#conclusion)
   - [Referencing and data sources](#referencing-and-data-sources)
 
-## Introduction
 ## Introduction
 
 This section outlines the data collection process that forms the backbone of our research into climate, agricultural, and environmental changes in eastern Syria. The aim is to build a reliable dataset using remote sensing tools and publicly available Earth observation datasets to support evidence-based analysis.
