@@ -1,4 +1,4 @@
-from core.config_manager.config_models.project_info import ProjectInfo
+from core.config_manager.config_models.project_info_model import ProjectInfo
 import ee
 
 class ApiConnecter:

@@ -1,5 +1,5 @@
 # core/config_manager/config_models/__init__.py
-from .project_info import ProjectInfo
+from .project_info_model import ProjectInfo
 from .satellites_model import SatelliteInfo
 from .region_model import RegionAssets
 from .config_model import ConfigModel
