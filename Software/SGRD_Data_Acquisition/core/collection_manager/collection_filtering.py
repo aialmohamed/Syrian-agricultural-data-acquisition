@@ -81,7 +81,6 @@ class CollectionFiltering:
         return self._collection.map(scale_image)
     def _apply_modis_scaling(self) -> ee.ImageCollection:
         scale = self._model.scale_factor
-
         def scale_ndvi(img):
             return img.select("NDVI").multiply(scale).rename("NDVI") \
                     .set("system:time_start", img.get("system:time_start"))
