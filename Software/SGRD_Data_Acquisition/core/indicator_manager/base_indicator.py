@@ -21,3 +21,17 @@ class BaseIndicator(ABC):
         Default is to raise error unless overridden.
         """
         raise NotImplementedError("This indicator does not support reduction.")
+    def composite(self, method="median") -> ee.Image:
+        """
+        Generate a composite image from the computed collection.
+        Supported methods: 'median', 'mean', 'mosaic', etc.
+        """
+        computed = self.compute()
+        if method == "median":
+            return computed.median()
+        elif method == "mean":
+            return computed.mean()
+        elif method == "mosaic":
+            return computed.mosaic()
+        else:
+            raise ValueError(f"Unsupported composite method: {method}")

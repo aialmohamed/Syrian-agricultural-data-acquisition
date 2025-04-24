@@ -80,13 +80,10 @@ class CollectionFiltering:
             return img.addBands(opt_bands, overwrite=True)
         return self._collection.map(scale_image)
     def _apply_modis_scaling(self) -> ee.ImageCollection:
-        """
-        Apply scaling factors for MODIS
-        """
         scale = self._model.scale_factor
-        bands_to_scale = ["NDVI", "EVI"]
 
-        def scale_modis(img):
-            scaled = [img.select(b).multiply(scale).rename(b) for b in bands_to_scale if b in img.bandNames().getInfo()]
-            return img.addBands(scaled, overwrite=True)
-        return self._collection.map(scale_modis)
+        def scale_ndvi(img):
+            return img.select("NDVI").multiply(scale).rename("NDVI") \
+                    .set("system:time_start", img.get("system:time_start"))
+
+        return self._collection.map(scale_ndvi)

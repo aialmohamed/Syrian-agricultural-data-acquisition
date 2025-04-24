@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
-
+import matplotlib.pyplot as plt
+import pandas as pd
 
 
 
@@ -68,6 +69,18 @@ def main():
     print("NDVI Result Size:", ndvi_result.size().getInfo())
     reduced = indicator.reduce(geom,512)
     print("Reduced NDVI Result Size:", reduced.size().getInfo())
+    scaled_collection_modis = CollectionFiltering(filtered_collection_modis, modsi).apply_scaling()
+
+
+    indicator_modis = IndicatorFactory.create("NDVI_MODIS", scaled_collection_modis)
+    ndvi_result_modis = indicator_modis.compute()
+    composite_modis = indicator.composite(method="mosaic")
+    print("NDVI Result MODIS Size:", ndvi_result_modis.size().getInfo())
+    reduced_modis = indicator_modis.reduce(geom, 512)
+    print("Reduced NDVI Result MODIS Size:", reduced_modis.size().getInfo())
+    print("Composite MODIS Size:", composite_modis.getInfo())
+
+
 
     #print("All Configurations:", configurations_path.all())
 if __name__ == "__main__":
