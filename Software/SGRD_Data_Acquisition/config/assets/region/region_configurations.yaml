@@ -1,0 +1,29 @@
+assets:
+  parent: projects/sgrd-smart-farming/assets/Areas/
+  regions:
+    SYRIA_EAST_AOI: {}
+    SECTOR_1_WEST_NORTH: {}
+    SECTOR_1_SUB_1_NORTH_WEST: {}
+    SECTOR_1_SUB_2_NORTH_EAST: {}
+    SECTOR_1_SUB_3_MID_WEST: {}
+    SECTOR_1_SUB_4_MID_EAST: {}
+    SECTOR_1_SUB_5_SOUTH_WEST: {}
+    SECTOR_1_SUB_6_SOUTH_EAST: {}
+    SECTOR_2_MID: {}
+    SECTOR_2_SUB_1_NORTH_WEST: {}
+    SECTOR_2_SUB_2_NORTH_MID: {}
+    SECTOR_2_SUB_3_NORTH_EAST: {}
+    SECTOR_2_SUB_4_MID_WEST: {}
+    SECTOR_2_SUB_5_MID_MID: {}
+    SECTOR_2_SUB_6_MID_EAST: {}
+    SECTOR_2_SUB_7_SOUTH_WEST: {}
+    SECTOR_2_SUB_8_SOUTH_MID: {}
+    SECTOR_2_SUB_9_SOUTH_EAST: {}
+    SECTOR_3_EAST_NORTH: {}
+    SECTOR_3_SUB_1_SOUTH: {}
+    SECTOR_3_SUB_2_MID: {}
+    SECTOR_3_SUB_3_NORTH: {}
+    SECTOR_4_EAST_SOUTH: {}
+    SECTOR_4_SUB_1_NORTH: {}
+    SECTOR_4_SUB_2_MID: {}
+    SECTOR_4_SUB_3_SOUTH: {}
