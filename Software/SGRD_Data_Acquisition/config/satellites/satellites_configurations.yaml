@@ -14,9 +14,11 @@ satellites:
 
   MODIS:
     name: "MODIS Terra"
-    dataset_id: "MODIS/006/MOD13Q1"
+    dataset_id: "MODIS/061/MOD13Q1"
+    sensor: "MODIS"
     bands:
       ndvi: "NDVI"
       evi: "EVI"
+      qa: "SummaryQA"
     scale_factor: 0.0001
     resolution: 250

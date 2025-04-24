@@ -2,22 +2,72 @@ import sys
 from pathlib import Path
 
 
+
+
 # Add project root to sys.path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
+from core.collection_manager.collection_filtering import CollectionFiltering
 from core.config_manager.config_models import ProjectInfo, SatelliteInfo, RegionAssets, ConfigModel, universal_factory
 from core.config_manager import ConfigLoader, ConfigDispatcher
-from core.api_manager.api_connecter import ApiConnecter
+from core.api_manager import ApiConnecter , ApiGeeLoader
+from core.assets_manager.assets_region_loader import AssetsRegionLoader
+from core.indicator_manager.indicator_factory import IndicatorFactory
 
 def main():
     cfg = ConfigLoader()
     dispatcher = ConfigDispatcher(cfg)
-    projet_info = dispatcher.get_project_settings()
-    project_model = universal_factory.from_config({"project": projet_info})
-
+    project_info = dispatcher.get_project_settings()
+    project_model = universal_factory.from_config({"project": project_info})
+    satellite_info = dispatcher.get_satellite_settings()
+    landsat = universal_factory.from_config({"satellites": satellite_info["LANDSAT_8"]})
+    modsi = universal_factory.from_config({"satellites": satellite_info["MODIS"]})
+    region_info = dispatcher.get_region_settings()
+    region_model = universal_factory.from_config({"parent": region_info})
     api_connecter = ApiConnecter(project_model)
-    api_connecter.authenticate_and_initialise()
+    api_connecter.authenticate_and_Initialize()
     api_connecter.check_engine_status()
+
+    loader = AssetsRegionLoader(region_model)
+    region_ids = list(region_model.regions.keys())
+   # print("Region IDs:", region_ids)
+    geom = loader.load_geometry(region_ids[7])
+   # print(geom.getInfo())
+
+    loader = ApiGeeLoader("2020-01-01", "2020-12-31", region_model, landsat)
+
+
+    collection = loader.build_collection(region_ids[7])
+    print("Collection:", collection.size().getInfo())
+
+    filtered_collection = CollectionFiltering(collection, landsat).apply()
+    print("Filtered Collection Size:", filtered_collection.size().getInfo())
+
+
+    loader_modis = ApiGeeLoader("2020-01-01", "2020-12-31", region_model, modsi)
+
+
+    collection_modis = loader_modis.build_collection(region_ids[7])
+    info = collection_modis.getInfo()
+    print("Collection keys:", info.keys())
+    print("Number of images:", len(info["features"]))
+    print("First image properties:", info["features"][1]["properties"])
+    filtered_collection_modis = CollectionFiltering(collection_modis, modsi).apply()
+    info = filtered_collection_modis.getInfo()
+    print("Collection keys:", info.keys())
+    print("Number of images:", len(info["features"]))
+    print("First image properties:", info["features"][1]["properties"])
+    print("Filtered Collection MODIS Size:", filtered_collection_modis.size().getInfo())
+
+    ## applay sacling 
+    scaled_collection_landsat = CollectionFiltering(filtered_collection, landsat).apply_scaling()
+    print("Scaled Collection Size:", scaled_collection_landsat.size().getInfo())
+
+    indicator = IndicatorFactory.create("NDVI_LANDSAT_8", scaled_collection_landsat)
+    ndvi_result = indicator.compute()
+    print("NDVI Result Size:", ndvi_result.size().getInfo())
+    reduced = indicator.reduce(geom,512)
+    print("Reduced NDVI Result Size:", reduced.size().getInfo())
 
     #print("All Configurations:", configurations_path.all())
 if __name__ == "__main__":

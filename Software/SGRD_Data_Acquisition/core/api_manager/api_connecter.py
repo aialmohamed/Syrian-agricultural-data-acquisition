@@ -6,7 +6,7 @@ class ApiConnecter:
         self._project_info = project_info
         self._project_id = project_info.ID
     
-    def authenticate_and_initialise(self):
+    def authenticate_and_Initialize(self):
         """
         Authenticate and initialize Earth Engine.
         """
