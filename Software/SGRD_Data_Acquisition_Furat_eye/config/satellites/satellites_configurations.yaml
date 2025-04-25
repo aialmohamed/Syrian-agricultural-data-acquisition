@@ -4,6 +4,8 @@ satellites:
     sensor: "OLI/TIRS"
     dataset_id: "LANDSAT/LC08/C02/T1_L2"
     bands:
+      swir1: "SR_B6"
+      swir2: "SR_B7"
       red: "SR_B4"
       nir: "SR_B5"
       cloud_mask: "QA_PIXEL"
@@ -22,3 +24,4 @@ satellites:
       qa: "SummaryQA"
     scale_factor: 0.0001
     resolution: 250
+

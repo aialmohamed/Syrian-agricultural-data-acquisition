@@ -1,15 +1,5 @@
 import sys
 from pathlib import Path
-import ee
-import matplotlib.pyplot as plt
-import pandas as pd
-
-
-
-
-
-
-
 
 # Add project root to sys.path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
@@ -55,16 +45,16 @@ def main():
     #print("Filtered Collection Size:", filtered_collection.size().getInfo())
 
 
-    loader_modis = ApiGeeLoader("2020-01-01", "2020-12-31", region_model, modsi)
+    #loader_modis = ApiGeeLoader("2020-01-01", "2020-12-31", region_model, modsi)
 
 
-    collection_modis = loader_modis.build_collection(region_ids[7])
-    info = collection_modis.getInfo()
+    #collection_modis = loader_modis.build_collection(region_ids[7])
+    #info = collection_modis.getInfo()
     #print("Collection keys:", info.keys())
     #print("Number of images:", len(info["features"]))
     #print("First image properties:", info["features"][1]["properties"])
-    filtered_collection_modis = CollectionFiltering(collection_modis, modsi).apply()
-    info = filtered_collection_modis.getInfo()
+    #filtered_collection_modis = CollectionFiltering(collection_modis, modsi).apply()
+    #info = filtered_collection_modis.getInfo()
     #print("Collection keys:", info.keys())
     #print("Number of images:", len(info["features"]))
     #print("First image properties:", info["features"][1]["properties"])
@@ -75,18 +65,20 @@ def main():
     #print("Scaled Collection Size:", scaled_collection_landsat.size().getInfo())
 
     indicator = IndicatorFactory.create("NDVI_LANDSAT_8", scaled_collection_landsat)
+    indicator_ndsi = IndicatorFactory.create("NDSI_LANDSAT_8", scaled_collection_landsat)
+    ndsi_result = indicator_ndsi.compute()
     ndvi_result = indicator.compute()
     #print("NDVI Result Size:", ndvi_result.size().getInfo())
-    reduced = indicator.reduce(geom,512)
+    #reduced = indicator.reduce(geom,512)
     #print("Reduced NDVI Result Size:", reduced.size().getInfo())
-    scaled_collection_modis = CollectionFiltering(filtered_collection_modis, modsi).apply_scaling()
+   # scaled_collection_modis = CollectionFiltering(filtered_collection_modis, modsi).apply_scaling()
 
 
-    indicator_modis = IndicatorFactory.create("NDVI_MODIS", scaled_collection_modis)
-    ndvi_result_modis = indicator_modis.compute()
-    composite_modis = indicator.composite(method="mosaic")
+    #indicator_modis = IndicatorFactory.create("NDVI_MODIS", scaled_collection_modis)
+    #ndvi_result_modis = indicator_modis.compute()
+    #composite_modis = indicator.composite(method="mosaic")
     #print("NDVI Result MODIS Size:", ndvi_result_modis.size().getInfo())
-    reduced_modis = indicator_modis.reduce(geom, 512)
+    #reduced_modis = indicator_modis.reduce(geom, 512)
    # print("Reduced NDVI Result MODIS Size:", reduced_modis.size().getInfo())
     #print("Composite MODIS Size:", composite_modis.getInfo())
 
@@ -98,20 +90,20 @@ def main():
     timeseries_dispatcher = TimeSeriesDispatcher(time_series_landsat_sorted_and_filtered)
     timeseries_monthly = timeseries_dispatcher.dispatch("monthly")
    # print("Time Series Monthly Size:", timeseries_monthly.size().getInfo())
-    timeseries_seasonal = timeseries_dispatcher.dispatch("seasonal")
+    #timeseries_seasonal = timeseries_dispatcher.dispatch("seasonal")
     #print("Time Series Seasonal Size:", timeseries_seasonal.size().getInfo())
-    timeseries_anomaly = timeseries_dispatcher.dispatch("anomaly",threshold=2.0)
+    #timeseries_anomaly = timeseries_dispatcher.dispatch("anomaly",threshold=2.0)
     #print("Time Series Anomaly Size:", timeseries_anomaly.size().getInfo())
-    img = timeseries_anomaly.first()
+    #img = timeseries_anomaly.first()
     #print(img.bandNames().getInfo())
 
 
     ## create data over two years :
-    time_series_landsat_2years = TimeSeriesLoader(ndvi_result)
-    time_series_landsat_sorted_and_filtered_2years = time_series_landsat_2years.filter_and_sorted_by_date("2020-01-01", "2021-12-31")
+    #time_series_landsat_2years = TimeSeriesLoader(ndvi_result)
+   # time_series_landsat_sorted_and_filtered_2years = time_series_landsat_2years.filter_and_sorted_by_date("2020-01-01", "2021-12-31")
     #print("Time Series Landsat 2 Years Size:", time_series_landsat_sorted_and_filtered_2years.size().getInfo())
-    timeseries_dispatcher_2years = TimeSeriesDispatcher(time_series_landsat_sorted_and_filtered_2years)
-    timeseries_monthly_2years = timeseries_dispatcher_2years.dispatch("yearly")
+    #timeseries_dispatcher_2years = TimeSeriesDispatcher(time_series_landsat_sorted_and_filtered_2years)
+    #timeseries_monthly_2years = timeseries_dispatcher_2years.dispatch("yearly")
     #print("Time Series Monthly 2 Years Size:", timeseries_monthly_2years.size().getInfo())
 
     ## save the monthly data to csv
@@ -130,10 +122,31 @@ def main():
     #with_flags = timeseries_monthly.map(has_date)
     #flags = with_flags.aggregate_array("has_date").getInfo()
     ##print(flags)  # Should be [True, True, ..., True]
-    charting_data_loader = ChartingDataLoader()
-    charting_data = charting_data_loader.load_data("NDVI_SECTOR_1_SUB_6_SOUTH_EAST_2020-01-15_2020-12-07.csv")
-    charting_data_plotter = ChartingDataPlotter(charting_data)
-    charting_data_plotter.plot_indicators()
+   # charting_data_loader = ChartingDataLoader()
+   # charting_data = charting_data_loader.load_data("NDVI_SECTOR_1_SUB_6_SOUTH_EAST_2020-01-15_2020-12-07.csv")
+    #charting_data_plotter = ChartingDataPlotter(charting_data)
+    #charting_data_plotter.plot_indicators()
+    # create ndsi data : 
+    time_series_ndsi = TimeSeriesLoader(ndsi_result)
+    time_series_ndsi_sorted_and_filtered = time_series_ndsi.filter_and_sort_by_year(2020)
+    time_serires_dispatcher_ndsi = TimeSeriesDispatcher(time_series_ndsi_sorted_and_filtered)
+    timeseries_monthly_ndsi = time_serires_dispatcher_ndsi.dispatch("monthly")
+    
+    # save data to csv
+    export_loader_ndsi = ExportLoader(timeseries_monthly_ndsi, geom, export_type="csv", export_source=fc)
+    payload_ndsi = export_loader_ndsi.load()
+
+    dispatcher_ndsi = ExportDispatcher(payload_ndsi)
+    formatted_data_ndsi = dispatcher_ndsi.dispatch()
+
+    #writter_ndsi = ExportWriter(formatted_data_ndsi)
+    #writter_ndsi.save()
+    #charting_data_loader = ChartingDataLoader()
+    #charting_data = charting_data_loader.load_data("NDSI_SECTOR_1_SUB_6_SOUTH_EAST_2020-01-15_2020-12-07.csv")
+    #charting_data_plotter = ChartingDataPlotter(charting_data)
+    #charting_data_plotter.plot_indicators()
+    
+
 
 
 

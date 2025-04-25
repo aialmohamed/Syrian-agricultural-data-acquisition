@@ -40,5 +40,30 @@ class ChartingDataPlotter:
             plt.legend()
             plt.tight_layout()
             plt.show()
+    @staticmethod
+    def plot_combined_indicators(df1, df2, label1="Indicator 1", label2="Indicator 2", title=None):
+        """
+        Plot two indicators from two dataframes on the same figure.
+        Assumes both have 'date' as a column.
+        """
+        df1 = pd.DataFrame(df1)
+        df2 = pd.DataFrame(df2)
 
+        df1['date'] = pd.to_datetime(df1['date'])
+        df2['date'] = pd.to_datetime(df2['date'])
+
+        value_col1 = [col for col in df1.columns if col not in ['date', 'region_id']][0]
+        value_col2 = [col for col in df2.columns if col not in ['date', 'region_id']][0]
+
+        sns.set_theme(context="paper", style="white")
+        plt.figure(figsize=(10, 5))
+        plt.plot(df1['date'], pd.to_numeric(df1[value_col1], errors='coerce'), marker='o', label=label1)
+        plt.plot(df2['date'], pd.to_numeric(df2[value_col2], errors='coerce'), marker='s', label=label2)
+        plt.title(title or f"{label1} vs {label2} over time")
+        plt.xlabel("Date")
+        plt.ylabel("Value")
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
         
