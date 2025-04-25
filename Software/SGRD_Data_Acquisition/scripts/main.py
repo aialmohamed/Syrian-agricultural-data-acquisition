@@ -1,7 +1,12 @@
 import sys
 from pathlib import Path
+import ee
 import matplotlib.pyplot as plt
 import pandas as pd
+
+
+
+
 
 
 
@@ -14,6 +19,7 @@ from core.config_manager import ConfigLoader, ConfigDispatcher
 from core.api_manager import ApiConnecter , ApiGeeLoader
 from core.assets_manager.assets_region_loader import AssetsRegionLoader
 from core.indicator_manager.indicator_factory import IndicatorFactory
+from core.timeseries_manager import TimeSeriesLoader, TimeSeriesDispatcher
 
 def main():
     cfg = ConfigLoader()
@@ -35,7 +41,7 @@ def main():
     geom = loader.load_geometry(region_ids[7])
    # print(geom.getInfo())
 
-    loader = ApiGeeLoader("2020-01-01", "2020-12-31", region_model, landsat)
+    loader = ApiGeeLoader("2020-01-01", "2022-12-31", region_model, landsat)
 
 
     collection = loader.build_collection(region_ids[7])
@@ -79,6 +85,31 @@ def main():
     reduced_modis = indicator_modis.reduce(geom, 512)
     print("Reduced NDVI Result MODIS Size:", reduced_modis.size().getInfo())
     print("Composite MODIS Size:", composite_modis.getInfo())
+
+    # create time series
+    time_series_landsat = TimeSeriesLoader(ndvi_result)
+    time_series_landsat_sorted_and_filtered = time_series_landsat.filter_and_sort_by_year(2020)
+    print("Time Series Landsat Size:", time_series_landsat_sorted_and_filtered.size().getInfo())
+
+    timeseries_dispatcher = TimeSeriesDispatcher(time_series_landsat_sorted_and_filtered)
+    timeseries_monthly = timeseries_dispatcher.dispatch("monthly")
+    print("Time Series Monthly Size:", timeseries_monthly.size().getInfo())
+    timeseries_seasonal = timeseries_dispatcher.dispatch("seasonal")
+    print("Time Series Seasonal Size:", timeseries_seasonal.size().getInfo())
+    timeseries_anomaly = timeseries_dispatcher.dispatch("anomaly",threshold=2.0)
+    print("Time Series Anomaly Size:", timeseries_anomaly.size().getInfo())
+    img = timeseries_anomaly.first()
+    print(img.bandNames().getInfo())
+
+
+    ## create data over two years :
+    time_series_landsat_2years = TimeSeriesLoader(ndvi_result)
+    time_series_landsat_sorted_and_filtered_2years = time_series_landsat_2years.filter_and_sorted_by_date("2020-01-01", "2021-12-31")
+    print("Time Series Landsat 2 Years Size:", time_series_landsat_sorted_and_filtered_2years.size().getInfo())
+    timeseries_dispatcher_2years = TimeSeriesDispatcher(time_series_landsat_sorted_and_filtered_2years)
+    timeseries_monthly_2years = timeseries_dispatcher_2years.dispatch("yearly")
+    print("Time Series Monthly 2 Years Size:", timeseries_monthly_2years.size().getInfo())
+
 
 
 
