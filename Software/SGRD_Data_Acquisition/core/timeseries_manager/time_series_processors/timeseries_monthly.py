@@ -14,22 +14,32 @@ class TimeSeriesMonthly:
         """
         self._timeseries_collection = timeseries_collection
 
+
     def process(self, **kwargs) -> ee.ImageCollection:
         """
         Groups images by month and computes the mean image for each month.
-
-        Args:
-            kwargs: Additional arguments for processing.
+        Automatically sets system:time_start based on earliest image in that month.
 
         Returns:
-            ee.ImageCollection: Processed ImageCollection.
+            ee.ImageCollection: Monthly mean images with timestamps.
         """
-        # Implement the monthly processing logic here
-
-        # filter images by month
         def monthly_mean(month):
-            filtered_collection = self._timeseries_collection.filter(ee.Filter.calendarRange(month,month,'month'))
-            return filtered_collection.mean().set('month', month)
+            month = ee.Number(month)
+
+            # Filter original collection by month
+            filtered = self._timeseries_collection.filter(
+                ee.Filter.calendarRange(month, month, "month")
+            )
+
+            # Get earliest system:time_start in that month
+            first = filtered.sort("system:time_start").first()
+            timestamp = first.get("system:time_start")
+
+            # Compute monthly mean and set real timestamp
+            mean_image = filtered.mean().set("month", month)
+            return mean_image.set("system:time_start", timestamp)
+
         months = ee.List.sequence(1, 12)
-        monthly_means = months.map(lambda month: monthly_mean(month))
+        monthly_means = months.map(lambda m: monthly_mean(m))
+
         return ee.ImageCollection.fromImages(monthly_means)

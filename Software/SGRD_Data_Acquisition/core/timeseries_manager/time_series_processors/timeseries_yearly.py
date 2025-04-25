@@ -30,8 +30,10 @@ class TimeSeriesYearly:
 
         def yearly_mean(year):
             year = ee.Number(year)
-            filtered = self._timeseries_collection.filter(ee.Filter.calendarRange(year,year,"year"))
-            mean = filtered.mean().set("year",year)
-            return mean
+            filtered = self._timeseries_collection.filter(ee.Filter.calendarRange(year, year, "year"))
+            mean = filtered.mean().set("year", year)
+            return mean.set("system:time_start", ee.Date.fromYMD(year, 1, 1).millis())
+        
         yearly_images = years.map(lambda year:yearly_mean(year))
+        
         return ee.ImageCollection.fromImages(yearly_images)

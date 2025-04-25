@@ -31,6 +31,6 @@ class TimeSeriesAnomaly:
         def compute_z_score(image):
             z = image.subtract(mean).divide(std_dev).rename("z_score")
             anomaly = z.abs().gt(threshold).rename("anomaly_mask")
-            return image.addBands(z).addBands(anomaly)
+            return image.addBands(z).addBands(anomaly).copyProperties(image, ["system:time_start"])
         
         return self._timeseries_collection.map(compute_z_score)

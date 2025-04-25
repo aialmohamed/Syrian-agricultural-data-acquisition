@@ -28,7 +28,6 @@ class ApiGeeLoader:
         collection_start, collection_end = self._get_collection_date_range(dataset_id, geometry)
 
         # Convert to Python datetime for comparison
-
         user_start = datetime.strptime(self._start_date, "%Y-%m-%d")
         user_end = datetime.strptime(self._end_date, "%Y-%m-%d")
         collection_start_dt = datetime.strptime(collection_start, "%Y-%m-%d")

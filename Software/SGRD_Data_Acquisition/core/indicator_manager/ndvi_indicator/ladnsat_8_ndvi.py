@@ -20,7 +20,7 @@ class Landsat8Ndvi(BaseIndicator):
                 maxPixels=1e13
             )
             return ee.Feature(None, {
-                "date": img.date().format("YYYY-MM-dd"),
+                "date": ee.Date(img.get("system:time_start")).format("YYYY-MM-dd"),
                 "NDVI": mean.get("NDVI")
             })
 
