@@ -14,7 +14,7 @@ from core.config_manager.config_loader import ConfigLoader
 from core.config_manager.config_models import universal_factory
 from core.api_manager.api_gee_loader import ApiGeeLoader
 
-class SgrdDataAcquisitionStartup:
+class FuratEyeStartup:
     """
     This class is responsible for starting the data acquisition process.
     It initializes the necessary components and starts the data acquisition.
@@ -41,7 +41,7 @@ class SgrdDataAcquisitionStartup:
 
     def setup_core_and_connect_api(self):
         """
-        Sets up the core 
+        This method initializes the API connection and checks the engine status.
         """
         self.api_connecter = ApiConnecter(self.project_model)
         self.api_connecter.authenticate_and_Initialize()
@@ -59,3 +59,16 @@ class SgrdDataAcquisitionStartup:
         :return: List of available regions.
         """
         return self.region_ids
+    def load_region_model(self):
+        """
+        Loads the region model.
+        :return: Region model.
+        """
+        return self.region_model
+    def create_satellite_model(self, satellite_id: str):
+        """
+        Creates a satellite model based on the given satellite ID.
+        :param satellite_id: The ID of the satellite.
+        :return: Satellite model.
+        """
+        return universal_factory.from_config({"satellites": self.satellite_info[satellite_id]})
