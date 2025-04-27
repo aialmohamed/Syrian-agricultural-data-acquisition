@@ -12,6 +12,8 @@ class SystemPaths:
         self._tests_dir = self._root / "SGRD_test"
         self._cli_patch_dir = self._root / "cli_patch"
         self._data_path_dir = self._root / "data"
+        self._image_path_dir = self._root / "images"
+        self._fonts_path_dir = self._root / "fonts"
 
         self._requirements_file = self._root / "requirements.txt"
 
@@ -50,6 +52,10 @@ class SystemPaths:
     def satellite_config(self): return self._satellite_config
     @property
     def data_path(self): return self._data_path_dir
+    @property
+    def image_path(self): return self._image_path_dir
+    @property
+    def fonts_path(self): return self._fonts_path_dir
 
     def __repr__(self):
         return f"<SystemPaths root={self.root}>"

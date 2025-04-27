@@ -1,19 +1,43 @@
 
-
-
+import ee
+from typing import List
+from core.indicator_manager.indicator_factory import IndicatorFactory
+from core.indicator_manager.indicator_registry import INDICATOR_REGISTRY
 class FurateyeIndicatorApplier:
     """
     This class is responsible for applying the Furateye indicator to the data.
     """
 
-    def __init__(self, indicator_type: str, collection: object):
+    def __init__(self, indicators_type: List[str], collection: ee.ImageCollection):
         self.collection = collection
-        self.indicator_type = indicator_type
+        self.indicators_type = indicators_type
 
-
-    def apply_indicator(self):
+    def apply_indicators(self) -> List[ee.ImageCollection]:
         """
-        Apply the Furateye indicator to the data.
+        Apply the Furateye indicator/s to the data.
         """
-        # Placeholder for the actual implementation
-        pass
+        collections : List[ee.ImageCollection]= []
+        for indicator in self.indicators_type:
+            if indicator not in list(INDICATOR_REGISTRY.keys()):
+                raise ValueError(f"Indicator {indicator} is not registered.")
+            else:
+                # apply the indicator
+                indicator_factory = IndicatorFactory.create(indicator, self.collection)
+                temp_collection = indicator_factory.compute()
+                collections.append(temp_collection)
+        return collections
+    def apply_indicator_for_different_collection(self, indicator: List[str],collection: ee.ImageCollection) -> ee.ImageCollection:
+        """
+        Apply the Furateye indicators to new  data collection.
+        if the data is not from the same satellite, then add the different collection and apply the indicator
+        """
+        collections : List[ee.ImageCollection]= []
+        for indicator in self.indicators_type:
+            if indicator not in list(INDICATOR_REGISTRY.keys()):
+                raise ValueError(f"Indicator {indicator} is not registered.")
+            else:
+                # apply the indicator
+                indicator_factory = IndicatorFactory.create(indicator, collection)
+                temp_collection = indicator_factory.compute()
+                collections.append(temp_collection)
+        return collections

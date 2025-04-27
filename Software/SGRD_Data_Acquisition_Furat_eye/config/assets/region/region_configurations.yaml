@@ -1,6 +1,7 @@
 assets:
   parent: projects/sgrd-smart-farming/assets/Areas/
   regions:
+    SYRIA: {}
     SYRIA_EAST_AOI: {}
     SECTOR_1_WEST_NORTH: {}
     SECTOR_1_SUB_1_NORTH_WEST: {}

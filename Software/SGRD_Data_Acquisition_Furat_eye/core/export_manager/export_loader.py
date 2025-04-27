@@ -3,13 +3,12 @@ class ExportLoader:
     Class to load export data (either time series or composite data).
     """
 
-    def __init__(self, data, export_region, export_type="csv", export_scale=255, export_source=None):
+    def __init__(self, data, export_region, export_type="csv", export_scale=255, export_region_id= None):
         self.data = data
         self.export_region = export_region
         self.export_type = export_type
         self.export_scale = export_scale
-        self.export_source = export_source  # The feature collection used to extract region_id
-        self._region_id = self._extract_region_id()
+        self._region_id = export_region_id
 
     def _extract_region_id(self):
         try:

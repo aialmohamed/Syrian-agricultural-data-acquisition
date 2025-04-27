@@ -20,9 +20,9 @@ class ChartingDataPlotter:
             if col not in ['date', 'region_id']:
                 df[col] = pd.to_numeric(df[col], errors='coerce')
         self.df = df
-    def plot_indicators(self):
+    def plot_indicator(self):
         """
-        Plot each indicator over time.
+        Plot an indicator over time.
         """
         if self.df is None:
             self._create_frame()
@@ -66,4 +66,66 @@ class ChartingDataPlotter:
         plt.grid(True)
         plt.tight_layout()
         plt.show()
+    def plot_indicators(self):
+        """
+        Plot all indicators in the data.
+        """
+        df = pd.DataFrame(self.data)
+        indicators = [col for col in df.columns if col not in ["date", "region_id"]]
+        df_long = pd.melt(df, id_vars=["date"], value_vars=indicators, var_name="Indicator", value_name="Value")
+        
+        # Convert to numeric!
+        df_long["Value"] = pd.to_numeric(df_long["Value"], errors="coerce")
+        
+        df_wide = df_long.pivot_table(index="date", columns="Indicator", values="Value")
+        df_wide = df_wide.sort_index()
+
+        plt.figure(figsize=(10, 6))
+        sns.lineplot(data=df_long, x="date", y="Value", hue="Indicator", marker="o")
+        plt.title("Indicators over time")
+        plt.xlabel("Date")
+        plt.ylabel("Index Value")
+        plt.legend(title="Indicators")
+        plt.grid(True)
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+    def plot_and_interpolate(self, resample_rule='MS'):
+        """
+        Plot all indicators after resampling and interpolating missing values.
+        
+        Parameters:
+        resample_rule (str): The pandas resample rule, e.g., 'D' for daily, 'W' for weekly, 'MS' for month start.
+        """
+        df = pd.DataFrame(self.data)
+        indicators = [col for col in df.columns if col not in ["date", "region_id"]]
+        
+        df_long = pd.melt(df, id_vars=["date"], value_vars=indicators, var_name="Indicator", value_name="Value")
+        
+        # Convert types
+        df_long["date"] = pd.to_datetime(df_long["date"])
+        df_long["Value"] = pd.to_numeric(df_long["Value"], errors="coerce")
+        
+        # Pivot to wide format
+        df_wide = df_long.pivot_table(index='date', columns='Indicator', values='Value')
+        
+        # Resample and interpolate
+        df_wide = df_wide.resample(resample_rule).mean()
+        df_wide = df_wide.interpolate(method='linear')
+
+        # Melt back to long format for plotting
+        df_long_interpolated = df_wide.reset_index().melt(id_vars="date", var_name="Indicator", value_name="Value")
+        
+        # Plot
+        plt.figure(figsize=(10, 6))
+        sns.lineplot(data=df_long_interpolated, x="date", y="Value", hue="Indicator", marker="o")
+        plt.title(f"Interpolated Indicators over Time (Resampled: {resample_rule})")
+        plt.xlabel("Date")
+        plt.ylabel("Index Value")
+        plt.legend(title="Indicators")
+        plt.grid(True)
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+        
         
