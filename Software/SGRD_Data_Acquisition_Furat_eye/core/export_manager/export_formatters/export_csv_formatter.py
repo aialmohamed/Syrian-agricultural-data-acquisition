@@ -25,6 +25,7 @@ class ExportCSVFormatter:
                     scale=self.scale,
                     maxPixels=1e13
                 )
+            
                 date = ee.Date(img.get("system:time_start")).format("YYYY-MM-dd")
                 return ee.Feature(None, mean.set("date", date).set("region_id", self.region_id)) 
 

@@ -82,7 +82,7 @@ class ChartingDataPlotter:
 
         plt.figure(figsize=(10, 6))
         sns.lineplot(data=df_long, x="date", y="Value", hue="Indicator", marker="o")
-        plt.title("Indicators over time")
+        plt.title(f"{', '.join(indicators)} over time")
         plt.xlabel("Date")
         plt.ylabel("Index Value")
         plt.legend(title="Indicators")

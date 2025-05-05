@@ -41,3 +41,18 @@ class FurateyeIndicatorApplier:
                 temp_collection = indicator_factory.compute()
                 collections.append(temp_collection)
         return collections
+    def apply_indicator_and_reduce(self,assest_loader,region_id):
+        """
+        Apply the Furateye indicator/s to the data.
+        """
+        geometry = assest_loader.load_feature_collection(region_id).geometry()
+        collections : List[ee.ImageCollection]= []
+        for indicator in self.indicators_type:
+            if indicator not in list(INDICATOR_REGISTRY.keys()):
+                raise ValueError(f"Indicator {indicator} is not registered.")
+            else:
+                # apply the indicator
+                indicator_factory = IndicatorFactory.create(indicator, self.collection)
+                temp_collection = indicator_factory.reduce(geometry)
+                collections.append(temp_collection)
+        return collections

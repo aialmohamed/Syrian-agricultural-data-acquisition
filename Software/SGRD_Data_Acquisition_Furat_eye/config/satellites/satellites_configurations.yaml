@@ -13,7 +13,20 @@ satellites:
     scale_factors:
       optical: { multiplier: 0.0000275, offset: -0.2 }
       thermal: { multiplier: 0.00341802, offset: 149.0 }
-
+  LANDSAT_7:
+    name: "Landsat 7"
+    sensor: "ETM+"
+    dataset_id: "LANDSAT/LE07/C02/T1_L2"
+    bands:
+      swir1: "SR_B6"
+      swir2: "SR_B7"
+      red: "SR_B4"
+      nir: "SR_B5"
+      cloud_mask: "QA_PIXEL"
+      saturation_mask: "QA_RADSAT"
+    scale_factors:
+      optical: { multiplier: 0.0000275, offset: -0.2 }
+      thermal: { multiplier: 0.00341802, offset: 149.0 }
   MODIS:
     name: "MODIS Terra"
     dataset_id: "MODIS/061/MOD13Q1"
@@ -24,4 +37,9 @@ satellites:
       qa: "SummaryQA"
     scale_factor: 0.0001
     resolution: 250
-
+  UCSB:
+    name : "UCSB"
+    dataset_id : "UCSB-CHG/CHIRPS/DAILY"
+    sensor : "CHIRPS"
+    bands:
+      precipitation: "precipitation"

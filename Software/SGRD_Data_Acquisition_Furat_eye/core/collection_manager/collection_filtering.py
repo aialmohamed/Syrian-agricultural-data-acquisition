@@ -15,7 +15,7 @@ class CollectionFiltering:
         sensor = self._model.sensor
         if "MODIS" in sensor:
             return self._apply_modis_filters()
-        elif "OLI/TIRS" in sensor or "LANDSAT" in sensor:
+        elif "OLI/TIRS" in sensor or "LANDSAT" in sensor or "ETM+" in sensor:
             return self._apply_landsat_filters()
         else:
             print(f"⚠️ No masking rules defined for sensor: {sensor}")
