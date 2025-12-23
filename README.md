@@ -1,4 +1,4 @@
-# SGRD_Smart_Farming
+# Syrian agricultural data acquisition
 
 > [!NOTE]
 > This Repository contains only documentation about the proposal of the Smart Farming 
