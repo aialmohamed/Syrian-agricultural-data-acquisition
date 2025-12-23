@@ -14,7 +14,7 @@ from application.furateye_simple_charting_loader import FurateyeSimpleChartingLo
 
 
 def main():
-    files=["NDVI_SYRIA_EAST_AOI_2000-01-01_2022-01-01.csv"]
+    files=["NDVI_SYRIA_EAST_AOI_2013-01-01_2025-01-01.csv"]
     chart_loader = FurateyeSimpleChartingLoader(files)
     
     data = chart_loader.load_data()

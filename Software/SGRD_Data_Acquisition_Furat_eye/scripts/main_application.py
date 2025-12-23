@@ -29,20 +29,20 @@ def main():
     value =base.region_ids.index("SYRIA_EAST_AOI")
     region_id = base.region_ids[value]
     #LADNSAT_8
-    satellite_id = base.satellite_ids[2]
+    satellite_id = base.satellite_ids[0]
     sat_model = base.create_satellite_model(satellite_id)
     
     print("Region ID:", region_id)
     print("Satellite ID:", satellite_id)
 
     loader = FurateyeCollectionLoader(region_id=region_id,satellite_id=satellite_id,region_model=region_model,satellite_model=sat_model)
-    collection = loader.load_raw_collection("2000-03-26", "2023-01-01")
+    collection = loader.load_raw_collection("2013-04-01", "2025-04-01")
     collection = loader.apply_cloud_masks_and_scale_to_collection()
     print(collection.size().getInfo())
 
     # Apply indicators see core.indicator_manager.indicator_registry for the available indicators
     #indicator_types = ["NDVI_LANDSAT_8", "NDSI_LANDSAT_8","NDVI_MODIS", "PRECIPITATION_UCSB", "NDVI_LANDSAT_7"]
-    indicator_types = ["NDVI_MODIS"]
+    indicator_types = ["NDVI_LANDSAT_8"]
     indicator = FurateyeIndicatorApplier(indicators_type=indicator_types, collection=collection)
     #indicator_collections = indicator.apply_indicator_and_reduce(assest_loader,region_id)
     indicator_collections  = indicator.apply_indicators()
@@ -51,8 +51,8 @@ def main():
     #print(indicator_collections[0].first().getInfo())
     #print(indicator_collections[1].first().getInfo())
     ## load timeseries
-    start_date = "2000-03-26"
-    end_date = "2023-01-01"
+    start_date = "2013-04-01"
+    end_date = "2025-04-01"
     time_series_loader = FurateyeTimeseriesLoader(indicator_collections)
     time_series_by_date = time_series_loader.create_timeseries_by_date(start_date, end_date)
     time_series_monthly_ndvi = time_series_loader.load_timeseries_as_years(time_series_by_date[0])
@@ -75,7 +75,7 @@ def main():
     # imageloader :
     # ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679','#41ab5d','#238443','#006837','#004529']
 
-    image_loader =  MapImageDataLoader(time_series_collection=time_series_monthly_ndvi,
+    '''image_loader =  MapImageDataLoader(time_series_collection=time_series_monthly_ndvi,
                                        region_name=region_id,
                                        indicator_name="NDVI",
                                       start_date=start_date,
@@ -90,7 +90,7 @@ def main():
     image_loader._prepare_output_folder()
     image_creator = MapImageCreator(image_loader)
     image_creator.create_map_image()
-    image_creator.generate_gif()
+    image_creator.generate_gif()'''
 
 if __name__ == "__main__":
     main()
